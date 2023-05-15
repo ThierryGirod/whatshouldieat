@@ -23,7 +23,6 @@ import ch.whatshouldieat.services.recipeservice.service.RecipeService;
 public class RecipeController {
     
     private final RecipeService service;
-  //  private final String CORS_IP_ALLOW = "http://ac04efe572a774d43ae8144e0b735fc5-2046315918.eu-central-1.elb.amazonaws.com:80";
 
     @Autowired
     public RecipeController(RecipeService recipeService){
@@ -42,13 +41,8 @@ public class RecipeController {
 
     @CrossOrigin
     @GetMapping("/{recipeId}")
-    public Recipe returnRecipeById(@PathVariable("recipeId") Long recipeId){
-         Optional<Recipe> opt = service.findRecipeById(recipeId);
-         if(!opt.isEmpty()){
-             System.out.println(opt.get());
-           return (Recipe)opt.get();
-         }
-         return null;    // todo optional??
+    public Optional<Recipe> returnRecipeById(@PathVariable("recipeId") Long recipeId){
+         return service.findRecipeById(recipeId);
     }
 
     @CrossOrigin
