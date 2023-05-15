@@ -3,33 +3,27 @@ The recipe service provides and manages the user's recipes.
 
 ## Provided endpoints
 ```
-GET: /recipe
+GET: /recipes
 ```
-Get a list of all recipes
+Get bootstrap list of recipes (provided for new users if desired)
 
 ```
-GET: /recipe?ownerId=xyz
+GET: /recipes/{userid}
 ```
-Get all recipes for owner (user) xyz
-ownerId="bootstrap" can be used as a bootstrap template for new users
+Get all recipes for user
 
 ```
-GET: /recipe/{recipeId}
+POST: /recipes/{userid}
 ```
-Get recipe by recipeId
+Store new recipe for user
 
 ```
-POST: /recipe
-```
-Store new recipe for user xyz
-
-```
-PUT: /recipe/{recipeid}
+PUT: /recipes/{userid}/{recipeid}
 ```
 Update existing recipe for user with recipeid
 
 ```
-DELETE: /recipe/{recipeid}
+DELETE: /recipes/{userid}/{recipeid}
 ```
 Delete existing recipe for user with recipeid
 

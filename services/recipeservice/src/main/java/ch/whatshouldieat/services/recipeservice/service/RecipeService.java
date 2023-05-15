@@ -27,10 +27,6 @@ public class RecipeService {
         return repository.findById(id);
     }
 
-    public List<Recipe> findRecipeByOwnerId(String ownerId){
-        return repository.findByOwnerId(ownerId);
-    }
-
     public Recipe saveRecipe(Recipe recipe){
         return repository.save(recipe);
     }
@@ -69,8 +65,6 @@ public class RecipeService {
     public void initalizeDatabaseWithDemoValues(){
         repository.saveAll(List.of(
             new Recipe("Spaghetti"),
-            new Recipe("Spaghetti","100"),
-            new Recipe("Avo", "100"),
             new Recipe("Avocado Toast"),
             new Recipe("Spaghetti Carbonara"),
             new Recipe("Avocado Toast"),

@@ -51,12 +51,6 @@ public class Recipe {
 
     public Recipe(String name){
         this.name = name;
-        this.ownerId = "bootstrap";
-    }
-
-    public Recipe(String name, String ownerId){
-        this.name = name;
-        this.ownerId = ownerId;
     }
 
     public Recipe(String name, String ingredients, String cookingInstructions){

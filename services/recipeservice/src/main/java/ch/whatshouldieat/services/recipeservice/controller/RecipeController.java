@@ -12,14 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ch.whatshouldieat.services.recipeservice.model.Recipe;
 import ch.whatshouldieat.services.recipeservice.service.RecipeService;
 
 @RestController
-@RequestMapping("/recipe")
 public class RecipeController {
     
     private final RecipeService service;
@@ -31,42 +29,38 @@ public class RecipeController {
     }
 
     @CrossOrigin
-    @GetMapping("")
-    public List<Recipe> returnRecipesByOwnerId(@RequestParam("ownerId") Optional<String> ownerId){
-        if(ownerId.isPresent()){
-            return service.findRecipeByOwnerId(ownerId.get());
-        }
-        
+    @GetMapping("/recipe")
+    public List<Recipe> returnRecipes(){
         return service.getAllRecipes();
     }
 
     @CrossOrigin
-    @GetMapping("/{recipeId}")
-    public Recipe returnRecipeById(@PathVariable("recipeId") Long recipeId){
-         Optional<Recipe> opt = service.findRecipeById(recipeId);
+    @GetMapping("/fooditem/{id}")
+    public Recipe returnRecipeById(@PathVariable("id") Long id){
+         Optional<Recipe> opt = service.findRecipeById(id);
          if(!opt.isEmpty()){
              System.out.println(opt.get());
            return (Recipe)opt.get();
          }
-         return null;    // todo optional??
+         return null;    
     }
 
     @CrossOrigin
-    @PostMapping("")
+    @PostMapping("/fooditem")
     public Recipe addRecipe(@RequestBody Recipe newRecipe) {
         return service.saveRecipe(newRecipe);
     }
 
     @CrossOrigin
-    @PutMapping("/{recipeId}")
-    public Recipe updateRecipe(@RequestBody Recipe updateRecipe, @PathVariable Long recipeId){
-        return service.updateRecipe(recipeId, updateRecipe);
+    @PutMapping("/fooditem/{id}")
+    public Recipe updateRecipe(@RequestBody Recipe updateRecipe, @PathVariable Long id){
+        return service.updateRecipe(id, updateRecipe);
     }
 
     @CrossOrigin
-    @DeleteMapping("/{recipeId}")
-    public void deleteRecipe(@PathVariable Long recipeId){
-        service.deleteRecipe(recipeId);
+    @DeleteMapping("/fooditem/{id}")
+    public void deleteRecipe(@PathVariable Long id){
+        service.deleteRecipe(id);
     }
 
     @GetMapping("/test")
