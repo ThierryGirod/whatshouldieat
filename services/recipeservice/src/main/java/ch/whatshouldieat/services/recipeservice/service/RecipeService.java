@@ -20,6 +20,7 @@ public class RecipeService {
    @Autowired
    public RecipeService(RecipeRepository recipeRepository){
        this.repository = recipeRepository;
+       //TODO Technical Debt: find a better initalization strategy 
        initalizeDatabaseWithDemoValues();
    } 
 
@@ -67,6 +68,7 @@ public class RecipeService {
     }
 
     public void initalizeDatabaseWithDemoValues(){
+        // TODO Technical Debt: remove this from code and externalize population of default values (e.g. to file based approach)
         repository.saveAll(List.of(
             new Recipe("Spaghetti"),
             new Recipe("Spaghetti","100"),
