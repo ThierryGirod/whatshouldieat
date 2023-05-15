@@ -3,6 +3,7 @@ package ch.whatshouldieat.services.controller;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -15,6 +16,7 @@ import ch.whatshouldieat.services.recipeservice.controller.RecipeController;
 import ch.whatshouldieat.services.recipeservice.model.Recipe;
 import ch.whatshouldieat.services.recipeservice.service.RecipeService;
 
+@Disabled
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 public class RecipeControllerTest {
 

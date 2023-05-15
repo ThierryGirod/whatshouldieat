@@ -41,14 +41,14 @@ To run start the project locally run
 ```
     ./mvnw clean spring-boot:run
 ```
-Make sure to have a mongodb running on you local machine for example using docker:
+Make sure to have a mongodb running on you local machine for example using docker (linking has to be done manually):
 
 ```
     docker pull mongo
     docker run -p 27017:27017 mongo
 ```
 
-or use provided docker-compose file
+or use provided docker-compose file (suggested)
 ```
-    docker-compose up
+    docker-compose up -d
 ```

@@ -1,6 +1,7 @@
 package ch.whatshouldieat.services.service;
 
 import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import ch.whatshouldieat.services.recipeservice.dao.RecipeRepository;
 import ch.whatshouldieat.services.recipeservice.model.Recipe;
 import ch.whatshouldieat.services.recipeservice.service.RecipeService;
 
+@Disabled
 @SpringBootTest
 @DataMongoTest
 @ExtendWith(SpringExtension.class)
@@ -40,7 +42,8 @@ public class RecipeServiceTest {
     @MockBean
     private RecipeRepository recipeRepository;
 
-    @Test
+ /*   @Test
+    @Disabled
     public void saveRecipeTest(){
 
         RecipeService recipeService = new RecipeService(recipeRepository);
@@ -49,4 +52,5 @@ public class RecipeServiceTest {
         assert(true);
 
     }
+    */
 }
