@@ -15,6 +15,7 @@ import lombok.extern.jackson.Jacksonized;
 @Document(collection = "recipes")
 public class Recipe {
 
+    // needed for auto incremnt of ids in mongo db. For details see: https://www.baeldung.com/spring-boot-mongodb-auto-generated-field
     @Transient
     public static final String SEQUENCE_NAME = "recipe_sequence";
 
