@@ -1,0 +1,49 @@
+<div class="col">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p class="card-text"><b>{{recipe.name}}</b> <br>
+           <label><u>Zutaten:</u></label> <i> {{recipe.ingredients}}</i>
+           <br>
+           <label><u>Rezept:</u></label> <i> {{recipe.cookingInstructions}}</i>
+        </p>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+                 <button class="btn btn-lg btn-outline-primary" (click)="open(modalEditDialog)">Bearbeiten</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal edit dialog -->
+  <ng-template  #modalEditDialog let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Bearbeiten</h4>
+      <button type="button" class="btn-close"  (click)="modal.dismiss('abort')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="mb-3 row">
+           <label class="form-label col-md-3">Bezeichnung:</label>
+           <input type="text" [(ngModel)]="recipe.name" name="name" class="col-md-9">
+         </div>
+         <div class="mb-3 row">
+            <label class="form-label col-md-3">Zutaten:</label>
+            <input type="text" [(ngModel)]="recipe.ingredients" name="foodRecipe" class="col-md-9">
+        </div>
+         <div class="mb-3 row">
+             <label class="form-label col-md-3">Rezept:</label>
+             <input type="text" [(ngModel)]="recipe.cookingInstructions" name="foodRecipe" class="col-md-9">
+         </div>  
+         <div class="mb-3 row">
+            <label class="form-label col-md-3">Bild:</label>
+            <input type="text" [(ngModel)]="recipe.imageUrl" name="imageUrl" class="col-md-9">
+        </div>
+        <div class="mb-3 row">
+            <label class="form-label col-md-3">Sonstiges:</label>
+            <input type="text" [(ngModel)]="recipe.additionalInformation" name="additionalInformation" class="col-md-9">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close(ACTION_DELETE)">Löschen</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close(ACTION_SAVE)">Speichern</button>
+    </div>
+  </ng-template>
