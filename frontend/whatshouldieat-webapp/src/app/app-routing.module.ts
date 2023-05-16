@@ -5,15 +5,16 @@ import { AuthComponent } from './auth/auth.component';
 import { RecipesComponent } from './recommendation/recipes/recipes.component';
 import { TakeoutComponent } from './recommendation/takeout/takeout.component';
 import { FridgeComponent } from './recommendation/fridge/fridge.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
-  { path : 'suggest', component: SuggestComponent},
-  { path : 'recipes', component: RecipesComponent},
-  { path : 'takeout', component: TakeoutComponent},
-  { path : 'fridge', component: FridgeComponent},
+  { path : 'suggest', component: SuggestComponent, canActivate: [AuthGuard]},
+  { path : 'recipes', component: RecipesComponent, canActivate: [AuthGuard]},
+  { path : 'takeout', component: TakeoutComponent, canActivate: [AuthGuard]},
+  { path : 'fridge', component: FridgeComponent, canActivate: [AuthGuard]},
   { path : 'auth', component: AuthComponent},
-  { path: '', redirectTo: '/auth', pathMatch: 'full'},
-  { path: '**', redirectTo: '/auth', pathMatch: 'full'}
+  { path: '', redirectTo: '/suggest', pathMatch: 'full'},
+  { path: '**', redirectTo: '/suggest', pathMatch: 'full'}
 ];
 
 

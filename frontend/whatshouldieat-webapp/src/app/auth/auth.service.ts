@@ -29,16 +29,16 @@ export class AuthService {
       Auth: environment.cognito,
     });
 
-    this.authenticationSubject = new BehaviorSubject<any>(false);
+    this.authenticationSubject = new BehaviorSubject<any>(null);
 
-    console.log("consturctor session");
+   /* console.log("consturctor session");
     Auth.currentUserPoolUser().then((val) => {
       console.log("currentuser");  
       console.log(val)
       this.authenticationSubject = new BehaviorSubject<any>(val);
     }).catch((exeption) => {
       console.log(exeption)
-    });
+    }); */
   }
 
 
@@ -66,7 +66,7 @@ export class AuthService {
   public signOut(): Promise<any> {
     return Auth.signOut()
     .then(() => {
-      this.authenticationSubject.next(false);
+      this.authenticationSubject.next(null);
     });
   }
 
@@ -98,5 +98,6 @@ export class AuthService {
       return Auth.updateUserAttributes(cognitoUser, user);
     });
   }
+
 
 }

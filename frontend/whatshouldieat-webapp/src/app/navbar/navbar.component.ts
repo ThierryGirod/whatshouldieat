@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RecipeService } from '../shared/recipe.service';
 import { AuthService } from '../auth/auth.service';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -9,19 +11,43 @@ import { AuthService } from '../auth/auth.service';
 })
 export class NavbarComponent implements OnInit, OnDestroy{
 
-  isAuthenticated = false;
-  constructor(private recipeService: RecipeService, private authService: AuthService){}
+  isAuthenticated: boolean;
+  authSub: Subscription;
+
+  constructor(private recipeService: RecipeService, private authService: AuthService, private router: Router){
+      this.isAuthenticated = false;
+  }
 
   ngOnInit(): void {
-    this.fetchData();
+    this.authService.isAuthenticated()
+      .then((success: boolean) => {
+        console.log("is auth"+ success)
+        this.isAuthenticated = success;
+      }).catch((ex)=>{
+        console.log("error with isAuth:"+ ex)
+      });
+   
+    this.authService.authenticationSubject.subscribe((user)=> { 
+        if(user != null){
+          this.isAuthenticated = true;
+        }
+    });
   }
 
   fetchData(){
     this.recipeService.fetchRecipes().subscribe();
   }
 
+  logout(){
+    console.log("logout")
+    this.authService.signOut().then(()=> {
+      this.isAuthenticated = false;
+      this.router.navigate(["/auth"])
+    });
+  }
+
   ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
+    this.authSub.unsubscribe();
   }
 
   

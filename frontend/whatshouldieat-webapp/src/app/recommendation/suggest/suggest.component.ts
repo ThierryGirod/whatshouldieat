@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Recipe } from 'src/app/shared/recipe.model';
 import { RecipeService } from 'src/app/shared/recipe.service';
 
@@ -10,14 +11,14 @@ import { RecipeService } from 'src/app/shared/recipe.service';
 })
 export class SuggestComponent implements OnInit, OnDestroy {
 
-  userName = "test User";
+  userName = "";
   recipeSelected = false;
   recipeChangedSub: Subscription;
   suggestedRecipes: Recipe[];
   recipeSuggestion: Recipe;
   currentSuggestionString: string;
   
-  constructor(private recipeService: RecipeService){}
+  constructor(private recipeService: RecipeService, private authService: AuthService){}
 
   ngOnInit(): void {
       this.recipeChangedSub = this.recipeService.recipesChanged.subscribe(
@@ -26,6 +27,14 @@ export class SuggestComponent implements OnInit, OnDestroy {
            this.suggestRandom();
         }
       );
+
+
+    this.authService.authenticationSubject.subscribe((user)=> {
+      console.log("suggest user")
+      console.log(user);
+      this.userName = user.attributes.name;
+    });    
+      
   }
 
   suggestRandom(){

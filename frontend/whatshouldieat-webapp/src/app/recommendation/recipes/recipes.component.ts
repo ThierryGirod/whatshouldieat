@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Recipe } from 'src/app/shared/recipe.model';
 import { RecipeService } from 'src/app/shared/recipe.service';
 
@@ -15,7 +16,7 @@ export class RecipesComponent implements OnInit, OnDestroy {
   searchText: string = "";
   recipeServiceSub: Subscription;
 
-  constructor(public recipeService: RecipeService){}
+  constructor(private recipeService: RecipeService){}
 
   ngOnInit(): void {
     this.recipes = this.recipeService.getRecipes();
@@ -23,7 +24,8 @@ export class RecipesComponent implements OnInit, OnDestroy {
     this.recipeServiceSub = this.recipeService.recipesChanged
         .subscribe(
           (recipes : Recipe[]) => this.recipes = recipes
-        )
+        );
+
   }
   
   addNewRecipe(){
