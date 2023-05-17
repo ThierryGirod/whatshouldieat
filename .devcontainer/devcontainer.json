@@ -1,0 +1,49 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/java
+{
+	"name": "Java",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/java:0-17",
+	"features": {
+		"ghcr.io/devcontainers/features/java:1": {
+			"installMaven": true,
+			"version": "none"
+		},
+		"ghcr.io/devcontainers/features/node:1": {
+			"nodeGypDependencies": true,
+			"version": "18"
+		},
+		"ghcr.io/devcontainers/features/python:1": {
+			"installTools": true,
+			"version": "3.11"
+		},
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+			"moby": true,
+			"azureDnsAutoDetection": true,
+			"installDockerBuildx": true,
+			"version": "20.10",
+			"dockerDashComposeVersion": "v1"
+		},
+		"ghcr.io/devcontainers-contrib/features/angular-cli:2": {
+			"version": "latest"
+		}
+	},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "java -version",
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"vscjava.vscode-java-pack",
+				"ms-python.python",
+				"GitHub.vscode-pull-request-github",
+				"SonarSource.sonarlint-vscode",
+				"Angular.ng-template"
+			]
+		}
+	},
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
