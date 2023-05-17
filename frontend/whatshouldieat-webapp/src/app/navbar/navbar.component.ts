@@ -30,11 +30,12 @@ export class NavbarComponent implements OnInit, OnDestroy{
     this.authService.authenticationSubject.subscribe((user)=> { 
         if(user != null){
           this.isAuthenticated = true;
+          this.fetchData(user);
         }
     });
   }
 
-  fetchData(){
+  fetchData(user:any){
     this.recipeService.fetchRecipes().subscribe();
   }
 

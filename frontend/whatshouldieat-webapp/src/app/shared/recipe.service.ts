@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from './recipe.model';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Subject, catchError, tap, throwError } from 'rxjs';
+import { Observable, Subject, catchError, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +49,35 @@ export class RecipeService {
         }),
         catchError(this.handleError)
       );
+  }
+
+  saveRecipe(recipe: Recipe): Observable<Recipe>{
+    console.log("service saved item; "+ recipe.name)
+    if(recipe.id != null){
+      //update
+      const url = `${this.foodServiceApiUrl}/${recipe.id}`; 
+      return this.http.put<Recipe>(url , recipe, this.httpOptions)
+              .pipe(
+                tap(() =>   this.pushUpdate()),
+                catchError(this.handleError)
+              );
+    }else{
+      //create new
+        return this.http.post<Recipe>(this.foodServiceApiUrl, recipe, this.httpOptions)
+          .pipe(
+            catchError(this.handleError)
+          );
+    }
+  }
+
+  deleteRecipe(recipe: Recipe): Observable<unknown>{
+
+      const url = `${this.foodServiceApiUrl}/${recipe.id}`; 
+      return this.http.delete(url, this.httpOptions)
+              .pipe(
+                tap(() =>   this.pushUpdate()),
+                catchError(this.handleError)
+              );
   }
 
   private handleError(error: HttpErrorResponse) {

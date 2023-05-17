@@ -26,16 +26,14 @@ export class RecipeItemComponent {
       console.log("res: "+ result)
       switch(result){
         case this.ACTION_SAVE:
-          console.log("save - not implemented yet");
-         /*   this.recipeService
-            .save(this.recipe)
-            .subscribe()); */
+            this.recipeService
+            .saveRecipe(this.recipe)
+            .subscribe();
           break;
-        case this.ACTION_DELETE:
-          console.log("delete - not implemented yet");
-        /*  this.recipeService
-          .delete(this.recipe)
-          .subscribe(); */
+        case this.ACTION_DELETE:  
+          this.recipeService
+          .deleteRecipe(this.recipe)
+          .subscribe(); 
           break;
         case "abort":
         break;

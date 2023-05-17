@@ -40,6 +40,7 @@ export class SuggestComponent implements OnInit, OnDestroy {
   suggestRandom(){
     
   
+    this.recipeSelected = false;
     const randomIndex = Math.floor(Math.random() * this.suggestedRecipes.length);
     
     if(this.suggestedRecipes.length > 0){
