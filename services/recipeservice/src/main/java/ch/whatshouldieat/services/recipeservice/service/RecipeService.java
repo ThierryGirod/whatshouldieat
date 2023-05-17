@@ -3,24 +3,32 @@ package ch.whatshouldieat.services.recipeservice.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ch.whatshouldieat.services.recipeservice.dao.RecipeRepository;
 import ch.whatshouldieat.services.recipeservice.model.Recipe;
+import ch.whatshouldieat.services.recipeservice.utils.DemoDataFileReader;
 
 
 @Service @Transactional
 public class RecipeService {
 
+    private static final Logger logger = LoggerFactory.getLogger(RecipeService.class);
+
+    private String demoDataFilePath;
+
     private final RecipeRepository repository;
     private List<Recipe> fullRecipesList;
     
    @Autowired
-   public RecipeService(RecipeRepository recipeRepository){
+   public RecipeService(RecipeRepository recipeRepository, @Value("${demodata.recipe.filepath}") String filepath){
        this.repository = recipeRepository;
-       //TODO Technical Debt: find a better initalization strategy 
+       this.demoDataFilePath = filepath;
        initalizeDatabaseWithDemoValues();
    } 
 
@@ -68,71 +76,9 @@ public class RecipeService {
     }
 
     public void initalizeDatabaseWithDemoValues(){
-        // TODO Technical Debt: remove this from code and externalize population of default values (e.g. to file based approach)
-        repository.saveAll(List.of(
-            new Recipe("Spaghetti"),
-            new Recipe("Spaghetti","100"),
-            new Recipe("Avo", "100"),
-            new Recipe("Avocado Toast"),
-            new Recipe("Spaghetti Carbonara"),
-            new Recipe("Avocado Toast"),
-            new Recipe("Flammenkuchen"),
-            new Recipe("Pizza"),
-            new Recipe("Risotto"),
-            new Recipe("Gmüesplätzli"),
-            new Recipe("Fishsticks"),
-            new Recipe("Rice Bowl"),
-            new Recipe("Signature Dish"),
-            new Recipe("Gmüesssuppe"),
-            new Recipe("Pita"),
-            new Recipe("Tacos"),
-            new Recipe("Lachs"),
-            new Recipe("Auflauf"),
-            new Recipe("Thai curry"),
-            new Recipe("Indisch"),
-            new Recipe("Wirz Pasta"),
-            new Recipe("Sandwitch Toast"),
-            new Recipe("Käse und Brot"),
-            new Recipe("Spaghetti mit Soja und Poulet"),
-            new Recipe("Lauch Härdöpfel"),
-            new Recipe("Fisch mit Salzhärdöpfel"),
-            new Recipe("Linse mit Fladebrot"),
-            new Recipe("Omelette"),
-            new Recipe("Lemonata"),
-            new Recipe("Hörnli mit ghacktem"),
-            new Recipe("Cordon Bleue"),
-            new Recipe("Lasagne"),
-            new Recipe("Teigware mit Pesto"),
-            new Recipe("Teigware mit Bolognese"),
-            new Recipe("Steak"),
-            new Recipe("Riis mit Gmüess"),
-            new Recipe("Gfüllti Peperroni"),
-            new Recipe("Salade riche"),
-            new Recipe("Lachsbrötli"),
-            new Recipe("Gnocci Auflauf"),
-            new Recipe("Tortellini"),
-            new Recipe("Wasser und Brot"),
-            new Recipe("Härdöpfelstock"),
-            new Recipe("Takeout"),
-            new Recipe("mir egal, säg du ¯\\_(ツ)_/¯"),
-            new Recipe("Schinkengipfeli"),
-            new Recipe("Schawarma"),
-            new Recipe("Schnitzelbrot"),
-            new Recipe("Ganzes Poulet"),
-            new Recipe("Panang Curry"),
-            new Recipe("Gmüessgipfeli"),
-            new Recipe("Gnocci mit Spinatsauce"),
-            new Recipe("Wraps"),
-            new Recipe("Pide"),
-            new Recipe("Gmüesswähe"),
-            new Recipe("Linsensuppe"),
-            new Recipe("Piccata"),
-            new Recipe("Lauchgratin"),
-            new Recipe("Pasta mit Thon-Tomatensauce"),
-            new Recipe("Chilli con carne"),
-            new Recipe("Shakschukkka")
-           )
-
-        ).forEach(System.out::println); 
+        if(this.countRecipes() == 0){
+            logger.info("DB is empty. Will initalize with demo values");
+            repository.saveAll(DemoDataFileReader.readLines(demoDataFilePath));
+        }
     }
 }
