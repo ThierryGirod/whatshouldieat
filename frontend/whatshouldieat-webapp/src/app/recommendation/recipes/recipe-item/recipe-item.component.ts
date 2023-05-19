@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Recipe } from 'src/app/shared/recipe.model';
 import { RecipeService } from 'src/app/shared/recipe.service';
@@ -8,7 +8,7 @@ import { RecipeService } from 'src/app/shared/recipe.service';
   templateUrl: './recipe-item.component.html',
   styleUrls: ['./recipe-item.component.css']
 })
-export class RecipeItemComponent {
+export class RecipeItemComponent implements OnInit {
 
   @Input() recipe: Recipe;
   @ViewChild("modalEditDialog",{static:true}) content:ElementRef;
@@ -20,7 +20,15 @@ export class RecipeItemComponent {
     private modalService: NgbModal,
     private recipeService : RecipeService
     ) {}
+
+  ngOnInit(): void {
+    if(this.recipe.id == null){
+      console.log("is is null, must be new item");
+      this.open(this.content);
+    }
+  }
   
+
   open(content: any){
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       console.log("res: "+ result)

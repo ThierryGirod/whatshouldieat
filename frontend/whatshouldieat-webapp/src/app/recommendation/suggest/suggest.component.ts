@@ -66,6 +66,6 @@ export class SuggestComponent implements OnInit, OnDestroy {
   }
 
   test(){
-    this.recipeService.fetchRecipes().subscribe();
+  //  this.recipeService.fetchRecipes().subscribe();
   }
 }

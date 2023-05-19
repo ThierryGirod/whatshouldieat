@@ -15,8 +15,11 @@ export class RecipesComponent implements OnInit, OnDestroy {
   recipes: Recipe[];
   searchText: string = "";
   recipeServiceSub: Subscription;
+  authServiceSub: Subscription;
+  ownerId: string;
 
-  constructor(private recipeService: RecipeService){}
+
+  constructor(private recipeService: RecipeService, private authService: AuthService){}
 
   ngOnInit(): void {
     this.recipes = this.recipeService.getRecipes();
@@ -29,14 +32,22 @@ export class RecipesComponent implements OnInit, OnDestroy {
           } 
         );
 
+    this.authServiceSub = this.authService.authenticationSubject.subscribe((user)=> {
+          console.log("suggest user")
+          console.log(user);
+          this.ownerId = user.username;
+        });    
+
   }
   
   addNewRecipe(){
-    //TODO this.recipes.push(new Recipe(0,"","","","","",""));
+    //TODO 
+    this.recipes.push(new Recipe(null,"",this.ownerId,"","","",""));
   }
 
   ngOnDestroy(): void {
       this.recipeServiceSub.unsubscribe();
+      this.authServiceSub.unsubscribe();
   }
 
 }

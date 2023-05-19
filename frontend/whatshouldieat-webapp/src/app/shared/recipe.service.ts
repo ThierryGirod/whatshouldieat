@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from './recipe.model';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, Subject, catchError, tap, throwError } from 'rxjs';
 
 @Injectable({
@@ -16,7 +16,6 @@ export class RecipeService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
-   //   Authorization: 'my-auth-token'
     })
   };
 
@@ -41,8 +40,10 @@ export class RecipeService {
     this.recipesChanged.next(this.recipes.slice());
   }
 
-  fetchRecipes(){
-    return this.http.get<Recipe[]>(this.foodServiceApiUrl)
+  fetchRecipes(userId: string){
+    const userIdParam = userId ? { params: new HttpParams().set('ownerId', userId) } : {};
+
+    return this.http.get<Recipe[]>(this.foodServiceApiUrl,userIdParam)
       .pipe(
         tap(recipes => {
           this.setRecipes(recipes);
@@ -58,7 +59,7 @@ export class RecipeService {
       const url = `${this.foodServiceApiUrl}/${recipe.id}`; 
       return this.http.put<Recipe>(url , recipe, this.httpOptions)
               .pipe(
-                tap(() =>   this.pushUpdate()),
+                tap(() =>   this.pushUpdate()), //TODO correct?
                 catchError(this.handleError)
               );
     }else{
@@ -75,7 +76,7 @@ export class RecipeService {
       const url = `${this.foodServiceApiUrl}/${recipe.id}`; 
       return this.http.delete(url, this.httpOptions)
               .pipe(
-                tap(() =>   this.pushUpdate()),
+                tap(() =>   this.pushUpdate()), //TODO correct?
                 catchError(this.handleError)
               );
   }

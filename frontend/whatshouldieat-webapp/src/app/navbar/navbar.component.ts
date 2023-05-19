@@ -36,7 +36,10 @@ export class NavbarComponent implements OnInit, OnDestroy{
   }
 
   fetchData(user:any){
-    this.recipeService.fetchRecipes().subscribe();
+    console.log("user info for fetch data:")
+    console.log(user)
+    
+    this.recipeService.fetchRecipes(user.username).subscribe();
   }
 
   logout(){
