@@ -60,8 +60,9 @@ public class Recipe {
         this.ownerId = ownerId;
     }
 
-    public Recipe(String name, String ingredients, String cookingInstructions){
+    public Recipe(String name, String ownerId, String ingredients, String cookingInstructions){
         this.name = name;
+        this.ownerId = ownerId;
         this.ingredients = ingredients;
         this.cookingInstructions = cookingInstructions;
     }

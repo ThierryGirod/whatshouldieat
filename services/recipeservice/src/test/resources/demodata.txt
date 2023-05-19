@@ -1,0 +1,2 @@
+Test Item;100;Milch Brot;Alles vermischen
+Test Item 2;100;Milch Brot Butter;Alles in einen Topf werfen
