@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-xs-12 col-md-6 offset-3 py-3">
+        <div *ngIf="error"style="text-align: center" class="alert alert-danger">
+           <p> {{ error }} </p>
+        </div>
+        <div *ngIf="isLoading"style="text-align: center">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+        <div class="card-body" *ngIf="isConfirm">
+            <div class="row">
+              <div class="col mb-2">
+                <p><i>We have sent you an E-Mail.</i></p>
+                <label for="code" class="form-label">Code:</label>
+                <input type="text" id="code" name="code" #code="ngModel" [(ngModel)]="user.code" class="form-control form-control-sm">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col d-grid">
+                <button type="button" (click)="confirmSignUp()" class="btn btn-sm btn-success" [disabled]="isLoading">
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="isLoading"></span>
+                  Confirm
+                </button>
+              </div>
+            </div>
+        </div>
+        <form *ngIf="!isConfirm" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" class="py-5" >
+            <div class="form-group" *ngIf="!isLoginMode">
+                <label for="name">How should we call you?</label>
+                <input type="name" id="name" class="form-control" [(ngModel)]="user.name" name="name" required/>
+            </div>
+            <div class="form-group">
+                <label for="email">E-Mail</label>
+                <input type="email" id="email" class="form-control" [(ngModel)]="user.email" name="email" required email/>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" [(ngModel)]="user.password" name="password" required minlength="6" />
+            </div>
+            <div class="col-md-3 offset-5 py-3" style="text-align: center;">
+                <button 
+                    class="btn btn-primary" 
+                    type="submit"
+                    [disabled]="!authForm.valid">
+                    {{ isLoginMode ? 'Login' : 'Sign Up' }}
+                </button> 
+                <p class="py-3" style="text-align: center;" >
+                  <a class="fakeAnchor" (click)="onSwitchMode()">{{ isLoginMode ? 'Sign Up' : 'Login'  }}</a> 
+                </p>
+            </div>
+        </form>
+    </div>
+</div>

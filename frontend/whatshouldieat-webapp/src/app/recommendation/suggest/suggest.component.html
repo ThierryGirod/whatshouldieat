@@ -1,0 +1,36 @@
+<div class="px-4 pt-5 my-5 text-center border-bottom">
+    
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">Hey <b>{{userName}}</b>, wie wärs hüt mit ...</p>
+      <h1 id="suggesttext" class="display-4 fw-bold text-body-emphasis">{{currentSuggestionString}}</h1>
+
+      <div class="overflow-hidden" style="max-height: 30vh;">
+        <div class="container px-5">
+         </div>
+      </div>
+    </div>
+    <div class="col-lg-6 mx-auto">
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+        <button type="button" class="btn btn-primary btn-lg px-4 me-sm-3" (click)="showDetails()">Ja voll!</button>
+        <button type="button" class="btn btn-outline-secondary btn-lg px-4" (click)="suggestRandom()">Ne voll nid...</button>
+        <button type="button" class="btn btn-outline-secondary btn-lg px-4" (click)="test()">test</button>
+      </div>
+    </div>
+   
+    <div class="row" *ngIf="recipeSelected">
+        <div class="col-md-12">
+            <p>
+                <b>Zutaten:</b>  {{recipeSuggestion.ingredients}}
+            </p>
+            <p>
+                <b>Rezept:</b> {{recipeSuggestion.cookingInstructions}}
+            </p>
+            <p>
+                <a class="whts" href="whatsapp://send?text=hey wie wärs hüt mit {{recipeSuggestion.name}} ?" data-action="share/whatsapp/share">
+                    <i class="fa fa-whatsapp"></i>
+                </a>
+            </p>
+        </div>
+    </div>
+
+  </div>

@@ -1,0 +1,21 @@
+<main>
+    <section class="py-3 text-center container">
+        <div class="row py-lg-3">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Übersicht</h1>
+                <p class="lead text-body-secondary">Do chasch dini Menüs verwalte und neui hinzuefüge.</p>
+                <p>      
+                   <a class="btn btn-primary my-2" (click)="addNewRecipe()">Neu</a>
+                </p>
+            </div>
+        </div>
+    </section>
+    <form class="d-flex mt-3" role="search">
+        <input class="form-control me-2" type="search" placeholder="Suchen..." aria-label="Search" [(ngModel)]="searchText" name="searchText">
+    </form> 
+    <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+             <app-recipe-item *ngFor="let recipe of recipes | filter: searchText" [recipe]="recipe"></app-recipe-item>
+        </div>
+    </div>
+</main>
