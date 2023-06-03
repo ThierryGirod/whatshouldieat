@@ -40,7 +40,8 @@
 				"ms-python.python",
 				"GitHub.vscode-pull-request-github",
 				"SonarSource.sonarlint-vscode",
-				"Angular.ng-template"
+				"Angular.ng-template",
+				"njpwerner.autodocstring"
 			]
 		}
 	},
