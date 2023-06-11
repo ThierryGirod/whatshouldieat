@@ -26,6 +26,9 @@
 		},
 		"ghcr.io/devcontainers-contrib/features/angular-cli:2": {
 			"version": "latest"
+		},
+		"ghcr.io/customink/codespaces-features/sam-cli:1": {
+			"version": "1.65.0"
 		}
 	},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
